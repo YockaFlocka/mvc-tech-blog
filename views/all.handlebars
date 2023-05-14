@@ -1,1 +1,14 @@
 <h1>The Tech Blog</h1>
+
+{{#each posts}}
+    <h3>{{title}}</h3>
+    <p>{{contents}}</p>
+{{/each}}
+
+{{#if bool}}
+    <p>I sent in some true boolean and here is your number: {{number}}</p>
+{{/if}}
+
+{{#unless bool}}
+    <p>here is your string: {{str}}</p>
+{{/unless}}
