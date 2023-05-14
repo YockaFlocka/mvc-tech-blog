@@ -4,8 +4,8 @@ router.get('/', (req, res)=>{
     res.render('all')
 })
 
-router.get('/hello', (req, res)=>{
-    res.render('hello')
+router.get('/signup', (req, res)=>{
+    res.render('signup')
 })
 
 module.exports =  router
