@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     try {
       const blogPostData = await BlogPost.findAll({
         // This will retrieve every BlogPost's associated Comment data. In SQL, this would be a JOIN function.
-        // include: [{ model: Comment }],
+        include: [{ model: Comment }],
       });
       res.status(200).json(blogPostData);
     } catch (err) {

@@ -4,13 +4,11 @@ const { User } = require('../../models');
 // CREATE new user
 router.post('/', async (req, res) => {
   try {
-    const dbUserData = await User.create({
-      username: req.body.username,
-      password: req.body.password,
-    });
+    const dbUserData = await User.create(req.body);
 
     req.session.save(() => {
-      req.session.loggedIn = true;
+      req.session.user_id = dbUserData.id;
+      req.session.logged_in = true;
 
       res.status(200).json(dbUserData);
     });
@@ -46,11 +44,8 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.loggedIn = true;
-      console.log(
-        '🚀 ~ file: user-routes.js ~ line 57 ~ req.session.save ~ req.session.cookie',
-        req.session.cookie
-      );
+      req.session.user_id = dbUserData.id;
+      req.session.logged_in = true;
 
       res
         .status(200)
@@ -64,7 +59,7 @@ router.post('/login', async (req, res) => {
 
 // Logout
 router.post('/logout', (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
     });
